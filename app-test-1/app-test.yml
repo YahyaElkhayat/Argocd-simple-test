@@ -23,7 +23,30 @@ spec:
         image: nginx
         ports:
         - name: web
-          containerPort: 80
+          containerPort: 8888 
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8888
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8888
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 3000
+          allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
@@ -35,9 +58,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name:  http
-    port:  80
-    targetPort: 80
+  - name: http
+    port: 80
+    targetPort: 8888  
     protocol: TCP
   selector:
     app: app-test
