@@ -43,10 +43,6 @@ spec:
           requests:
             memory: "64Mi"
             cpu: "250m"
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 3000
-          allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
