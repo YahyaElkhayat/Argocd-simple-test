@@ -23,17 +23,17 @@ spec:
         image: nginx
         ports:
         - name: web
-          containerPort: 8888 
+          containerPort: 32222 
         readinessProbe:
           httpGet:
             path: /
-            port: 8888
+            port: 32222
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /
-            port: 8888
+            port: 32222
           initialDelaySeconds: 15
           periodSeconds: 20
         resources:
@@ -56,7 +56,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 8888  
+    targetPort: 32222  
     protocol: TCP
   selector:
     app: app-test
